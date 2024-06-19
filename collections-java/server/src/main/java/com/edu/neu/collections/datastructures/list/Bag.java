@@ -1,7 +1,8 @@
-package com.edu.allaboutlinklist.list;
+package com.edu.neu.collections.datastructures.list;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+
+import com.edu.neu.collections.datastructures.commons.Node;
 
 public class Bag<T> implements Iterable<T> {
 
@@ -27,16 +28,11 @@ public class Bag<T> implements Iterable<T> {
         return n; // returns number of items in bag
     }
 
-    private static class Node<T> {
-        private T t;
-        private Node<T> next;
-    }
-
     public void add(T t) {
         // Adding at the start
         Node<T> oldFirst = first;
         first = new Node<>();
-        first.t = t;
+        first.data = t;
         first.next = oldFirst;
         n++;
     }

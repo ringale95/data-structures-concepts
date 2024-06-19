@@ -1,9 +1,9 @@
-package stacks;
+package com.edu.neu.collections.datastructures.stacks;
 
 import java.util.Iterator;
 
-import com.edu.allaboutlinklist.list.BagIterator;
-import com.edu.allaboutlinklist.list.Node;
+import com.edu.neu.collections.datastructures.commons.Node;
+import com.edu.neu.collections.datastructures.list.BagIterator;
 
 public class Stack<T> implements Iterable<T> {
 
@@ -51,7 +51,7 @@ public class Stack<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new BagIterator(first);
+        return new BagIterator<T>(first);
     }
 
     public String toString() {

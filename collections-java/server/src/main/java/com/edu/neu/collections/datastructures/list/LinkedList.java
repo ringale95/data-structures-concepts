@@ -1,4 +1,6 @@
-package com.edu.allaboutlinklist.list;
+package com.edu.neu.collections.datastructures.list;
+
+import com.edu.neu.collections.datastructures.commons.Node;
 
 public class LinkedList {
 

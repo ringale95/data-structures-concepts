@@ -1,4 +1,4 @@
-package com.edu.allaboutlinklist.others;
+package com.edu.neu.collections.datastructures.commons;
 
 public class Generics {
 
