@@ -1,11 +1,11 @@
-package com.edu.allaboutlinklist.queues;
+package com.edu.neu.collections.datastructures.queues;
 
 import java.io.EOFException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
 
-import com.edu.allaboutlinklist.list.Node;
+import com.edu.neu.collections.datastructures.commons.Node;
 
 public class PQueue<T> implements Queue<T> {
 
@@ -96,7 +96,7 @@ public class PQueue<T> implements Queue<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new QueueIterator<>(first);
+        return new QueueIterator<T>(first);
     }
 
     @Override

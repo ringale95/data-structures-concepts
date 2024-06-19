@@ -1,8 +1,8 @@
-package com.edu.allaboutlinklist.queues;
+package com.edu.neu.collections.datastructures.queues;
 
 import java.util.Iterator;
 
-import com.edu.allaboutlinklist.list.Node;
+import com.edu.neu.collections.datastructures.commons.Node;
 
 public class QueueIterator<T> implements Iterator<T> {
     private Node<T> curr;

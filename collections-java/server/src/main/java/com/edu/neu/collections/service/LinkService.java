@@ -1,4 +1,4 @@
-package com.edu.allaboutlinklist.service;
+package com.edu.neu.collections.service;
 
 import org.springframework.stereotype.Service;
 

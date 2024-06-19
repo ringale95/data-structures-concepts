@@ -1,10 +1,10 @@
-package com.edu.allaboutlinklist.controller;
+package com.edu.neu.collections.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.allaboutlinklist.service.LinkService;
+import com.edu.neu.collections.service.LinkService;
 
 @RestController
 public class LinkController {

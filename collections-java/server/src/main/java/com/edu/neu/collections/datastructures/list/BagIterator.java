@@ -1,9 +1,9 @@
-package com.edu.allaboutlinklist.list;
+package com.edu.neu.collections.datastructures.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import stacks.Stack;
+import com.edu.neu.collections.datastructures.commons.Node;
 
 public class BagIterator<T> implements Iterator<T> {
     private Node<T> current;
