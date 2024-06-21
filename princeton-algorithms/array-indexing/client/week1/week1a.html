@@ -9,97 +9,141 @@
     <script type="module" src="index.js"></script>
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1>HelloWorld program in various ways:</h1>
-        <h3>How to compile or run java program?</h3>
-        <p> Write code in java. <br />
-            - Compile it using <strong>javac HelloWorld.java</strong> and run the java code by
-            <strong>java HelloWorld</strong>
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-2">
+        <div>
+            <h1>Module 1 - Algorithm by Princeton University</h1>
 
-            <h4>Breakdown of public static void main(String[] args)</h4>
-            <p>public - This is an <strong>access modifier</strong>, which means that the main method is accessible from
-                anywhere. It needs to be public so that the Java Virtual Machine (JVM) can call this method to start the
-                program.</p>
-            <p>static - keyword means method belongs to class instead of instance of class as this is starting point so
-                called without creating objects</p>
-            <p>void - main method doesnt return any value</p>
-            <p>main - name of method: JVM looks for main method when it starts executing the java program. <b>Cannot
-                    change the name of method</b></p>
-            <p>String[] args - This is the parameter to the main method. It is an array of String objects, and it stores
-                any command-line arguments that are passed to the program.
-                <b>Can change name of "args". Below args array will contain {"arg1", "arg2"}</b> <br />
-                <pre>
-        java MyProgram arg1 arg2
-                </pre>
-            </p>
-            <h3>How to compile or run java program using command line arguments?</h3>
-            <pre>
-        public static void main(String[] args) {
-            // printing using command line arguments:
-            String arg1 = args[0];
-            String arg2 = args[1];
-    
-            System.out.println("Hello " + arg1 + " and " + arg2 + ".");
-            System.out.println("Goodbye " + arg2 + " and " + arg1 + ".");
-        }
-    </pre>
-            <p>Steps: <ul>
-                    <li>javac HelloWorld.java</li>
-                    <li>java HelloWorld Kevin and Bob.</li>
-                </ul>
-                Answer: <br /> Hello Kevin and Bob.<br />
-                Goodbye Bob and Kevin.
-            </p>
-
-            <p><strong>Steps to develop an algorithms:</strong></p>
-            <ul>
-                <li>Model the problem</li>
-                <li>Find an algorithm to solve it</li>
-                <li>Fast enough? Fits in memory?</li>
-                <li>If not, figure out why.</li>
-                <li>Find a way to address the problem</li>
-                <li>Iterate until satisfied</li>
+            This module largely revolves around the ways code can be executed by providing data in multiple ways. The
+            ways
+            can be categorized as,
+            <ul class="mt-4">
+                <li><a href="#command-line-arguments">Command Line Arguments</a></li>
+                <li>
+                    Command Line <a href="https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdIn.html">StdInput</a>
+                    <ul>
+                        <li><a href="#std-input-keyboard">Standard Input Keyboard</a></li>
+                        <li><a href="#input-redirection-operator">Simulate Keyboard action by &lt; Input Redirection
+                                operator to file</a></li>
+                    </ul>
+                </li>
+                <li>Hardcode values stored in Variables</li>
             </ul>
+        </div>
 
-            <h2>Union-Find algorithm</h2>
-            <p><strong>Union</strong> - connect two objects <br />
-                <strong>Find/connected query</strong> - is there a path connecting the two objects?</p>
-            <p><strong>Assumptions:</strong></p>
-            <ul>
-                <li>Reflexive: p is connected to p</li>
-                <li>Symmetric: if p is connected to q, then q is connected to p</li>
-                <li>Transitive: if p is connected to q and q is connected to r, then p is connected to r </li>
-            </ul>
-            <p>Union find data type api:</p>
-            <pre>
-        UF(int n); //initialize union find datastructure with n objects(0-N-1)
-        void union(int p, int q) //add connection between p and q
-        boolean connected(int p, int q) // are p and q in same component?
-        int find(int p)
-        int count()
-    </pre>
+        <div id="command-line-arguments" class="mt-5">
+            <h3>Command Line Arguments</h3>
 
-            <p>Dynamic connectivity:</p>
+            <p>One of the ways to pass data to client-code is via command line arguments. These arguments are accessible
+                within
+                your <code>public static void main(String args[])</code> as <code>args</code> array. You can then
+                reference
+                it
+                using the array syntax to fetch the data stored.</p>
+
+            <strong style="display: block" class="mt-4">Code:</strong>
             <pre>
-    int n = StdIn.readInt();
-    UF uf = new UF(n);
-    while(!StdIn.isEmpty()){
-        int p = StdIn.readInt();
-        int q = StdIn.readInt();
-        if(!u.connected(p,q)){
-            uf.union(p,q);
-            StdOut.println(p+ " " + q");
+public class HelloGoodbye {
+    public static void main(String[] args) {
+        // printing using command line arguments:
+        String arg1 = args[0];
+        String arg2 = args[1];
+
+        System.out.println("Hello " + arg1 + " and " + arg2 + ".");
+        System.out.println("Goodbye " + arg2 + " and " + arg1 + ".");
     }
 }
-    </pre>
-            <button class="btn btn-primary" id="button-1">Cick me</button>
-            <div class="mt-3">
-                Count: <span id="count-container"></span>
-                <button class="btn btn-secondary" id="button-2">Increment!</button>
-            </div>
-    </div>
+        </pre>
+            <strong>Command Line:</strong>
+            <pre>
+&gt; javac HelloWorld.java 
+&gt; java HelloWorld Hello World
+        </pre>
+        </div>
 
+        <div id="std-input-keyboard" class="mt-5">
+            <h3>Standard Input Keyboard</h3>
+
+            <p>Once any Java code is compiled and run using command line, we can interact with StdInput using system's
+                Keyboard to pass desired data to the code.</p>
+
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre>
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdRandom;
+
+public class RandomWord {
+    public static void main(String[] s) {
+
+        // StdIn.readString(): reads and returns the next string from standard input.
+        // StdIn.isEmpty(): returns true if there are no more strings available on standard input, and false otherwise.
+        // StdOut.println(): prints a string and terminating newline to standard output. It’s also fine to use System.out.println() instead.
+        // StdRandom.bernoulli(p): returns true with probability p
+        // and false with probability 1−p
+
+        String champion = null;
+        int count = 0;
+        // read words until there are no more words left
+        while (!StdIn.isEmpty()) { // just like hasNext() it returns true if there are no more string available on std input else false
+            String word = StdIn.readString(); // just like next() it reads and returns next string
+            count++;
+
+            if (StdRandom.bernoulli(1.0 / count)) // similar to Math.random() < 1.0 / count
+                champion = word;
+        }
+
+        if (champion != null) {
+            System.out.println(champion);
+        }
+
+
+    }
+
+}
+        </pre>
+            <strong>Command Line:</strong>
+            <pre>
+&gt; javac RandomWord.java 
+&gt; java RandomWord
+&gt; head tails // Values passed from keyboard
+&gt; head // Output printed on command line by code
+        </pre>
+        </div>
+
+        <div id="input-redirection-operator" class="mt-5">
+            <h3>Simulate Keyboard action by &lt; Input Redirection operator to file</h3>
+
+            <p>We can give the StdInput using any file by simulating Keyboard action via the '&lt;' Input redirection
+                operator on the command line. This helps us give large amount of data through StdInput.</p>
+
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre>
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.UF;
+
+public class UFDynamicClient {
+    public static void main(String[] args) {
+        int n = StdIn.readInt();
+        UF uf = new UF(n);
+        while (!StdIn.isEmpty()) {
+            int p = StdIn.readInt();
+            int q = StdIn.readInt();
+            if (uf.find(p) != uf.find(q)) {
+                uf.union(p, q);
+                StdOut.println(p + " " + q);
+            }
+        }
+    }
+}
+        </pre>
+            <strong>Command Line:</strong>
+            <pre>
+&gt; javac UF.java 
+&gt; java UF < tinyTxt.txt // tinyTxt.txt contains the dataset
+        </pre>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
