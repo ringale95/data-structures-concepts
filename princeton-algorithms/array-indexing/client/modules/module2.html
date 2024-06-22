@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-2">
+        <div>
+            <h1 class="display-4 fw-bold">Module 2 : Algorithms by Princeton University</h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+                    This module revolves around Dynamic Connectivity, put simply imagine if you have two
+                    computers and you want to keep track of which computers are connected to each other and if they can
+                    communicate or not. Similarly Dynamic connectivity is about understanding connections between set
+                    of elements that can be joined together. This can be achieved using <code>UnionFind</code>
+                    datastructure.
+                </p>
+                <p>
+                    Several implementations of <code>UnionFind</code> such as quick find, quick union, weighted quick
+                    union, and weighted quick union with path compression will be discussed in this module in detail.
+                    Lastly, we will discuss the <code>Percolation</code> problem using <code>UnionFind</code>.
+                </p>
+            </div>
+
+            <div id="dynamic-connectivity" style="margin-top:20px">
+                <h3 class="display-5 fw-bold mt-5">Dynamic Connectivity</h3>
+                <p>Before we move on explaining Dynamic connectivity let's talk a bit about <code>Equivalence
+                        relations</code>.
+                </p>
+                <div id="equivalence-relations">
+                    <h4>What is <code>equivalence relations?</code></h4>
+                    <p>In order to say that two elements satisfy the equivalence relations they must also satisfy 3
+                        additional relations namely <i>Reflexive,Symmetric and Transitive</i> relations.</p>
+                    Let's say <i>p,q and r</i> are three separate elements, then,
+                    <ul>
+                        <li>Reflexive: p is connected to p</li>
+                        <li>Symmetric: if p is connected to q, then q is connected to p</li>
+                        <li>Transitive: if p is connected to q and q is connected to r, then p is connected to r </li>
+                    </ul>
+                </div>
+                <p>
+                    Now that we have defined what is equivalence relations, we can say that "p is-connected-to q", here
+                    <i>is-connected-to</i> is a equivalence relation because all 3 relations are still true for this
+                    relation.<br />
+            </div>
+            <p class="display-5 fw-light mt-5 ">"We are writing a code to ignore the extraneous pairs( they belong in
+                the
+                same equivalence class) and connect the remaining valid pairs and print them to STDOutput."
+            </p>
+            <div id="terminologies">
+                <h4 class="fw-bold display-5 mt-5">Terminologies</h4>
+                <span class="fw-bold mt-5">1. Sites</span>
+                <p>Element defined in the network for Example: p and q as defined above can be considered as
+                    Sites.</p>
+
+                <span class="fw-bold mt-5">2. Connection</span>
+                <p>Pair of Sites which satisfy <code>equivalence relation</code>, for Example: if union(p, q) is
+                    executed, then a <code>Connection</code> between the Sites exists.</p>
+
+                <span class="fw-bold mt-5">3. Component</span>
+                <p>Sites belonging in the same equivalence class are set to be in same Component. Each Component is
+                    uniquely identified by <code>component-identifier</code>.</p>
+
+                <span class="fw-bold mt-5">4. Site-indexed array</span>
+                <p>A data structure that is defined to model the Connections in the Network.</p>
+
+
+                <span class="fw-bold mt-5">5. Integer names</span>
+                <p>Every site is identified by its integer name.</p>
+
+
+                <span class="fw-bold mt-5">5. Network</span>
+                <p>Represents dataset with all of its <code>Connection</code>(s).</p>
+            </div>
+
+            <div id="api">
+                <h4 class="fw-bold display-5 mt-5">APIs</h4>
+                <span class="fw-bold mt-5">UF(int N)</span>
+                <p>Initialize N <code>Sites</code> with integer names and also creates a
+                    <code>site-indexed-array [id].</code>
+                </p>
+
+                <span class="fw-bold mt-5">union(int p, int q)</span>
+                <p>Connect two Sites <code>p and q </code> in a Network.</p>
+
+                <span class="fw-bold mt-5">find(int p)</span>
+                <p>Returns the component-identifier of the Site <code>p</code>.</p>
+
+                <span class="fw-bold mt-5">connected(int p, int q)</span>
+                <p>Checks if both <code>p and q </code> belong to the same component.</p>
+
+                <span class="fw-bold mt-5">count()</span>`
+                <p>Returns number of Components in the Network.</p>
+            </div>
+
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Quick Find ></a>
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Quick Union ></a>
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Weighted Quick Union ></a>
+        </div>
+
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"> </script>
+</body>
+
+</html>
