@@ -48,7 +48,10 @@
                 <p>
                     Now that we have defined what is equivalence relations, we can say that "p is-connected-to q", here
                     <i>is-connected-to</i> is a equivalence relation because all 3 relations are still true for this
-                    relation.<br />
+                    relation. We will define another terminology as <code>equivalence class</code> wherein if p,q and r
+                    satisfy the equivalence relation they can be considered to be part of the same equivalence class.
+                </p>
+
             </div>
             <p class="display-5 fw-light mt-5 ">"We are writing a code to ignore the extraneous pairs( they belong in
                 the
@@ -99,13 +102,38 @@
                 <span class="fw-bold mt-5">count()</span>`
                 <p>Returns number of Components in the Network.</p>
             </div>
+            <div id="client-code">
+                <h4 class="fw-bold display-5 mt-5">Client Code</h4>
+                <p>This is the client code which will consume the APIs of implementations of UnionFind. </p>
+                <pre>
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.UF;
 
+public class UFDynamicClient {
+    public static void main(String[] args) {
+        int n = StdIn.readInt();
+        UF uf = new UF(n);
+        while (!StdIn.isEmpty()) {
+            int p = StdIn.readInt();
+            int q = StdIn.readInt();
+            if (uf.find(p) != uf.find(q)) {
+                uf.union(p, q);
+                StdOut.println(p + " " + q);
+            }
+        }
+    }
+}
+                </pre>
+            </div>
             <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Quick Find ></a>
             <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Quick Union ></a>
-            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Weighted Quick Union ></a>
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="">Weighted Quick Union
+                ></a>
         </div>
 
-        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"> </script>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
 </body>
 
 </html>
