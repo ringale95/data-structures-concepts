@@ -1,4 +1,4 @@
-package com.edu.arrayIndexing.service;
+package com.edu.princetonalgorithm.service;
 
 import org.springframework.stereotype.Service;
 
