@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class=" bg-dark bg-gradient text-white">
+    <div class="container p-5 mb-2">
+        <div>
+            <h1 class="display-4 fw-bold ">Quick Union </h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+
+                    This section delves into the implementation details of the <code>Quick Union</code> algorithm. The
+                    algorithm employs a <code>site-indexed-array</code> as its internal data structure to model the
+                    connections between various sites. This array stores the parent site for each site, following a lazy
+                    approach. Essentially, this means that the array represents a set of trees, where each entry in the
+                    array points to the parent of the tree to which the site belongs. <br />
+
+                </p>
+            </div>
+
+            <div id="api">
+                <h4 class="fw-bold display-5 mt-5">APIs</h4>
+                <div id="constructor">
+                    <h4 class="fw-bold ">QuickUnion(int N)</h4>
+                    <p>Initialize N <code>Sites</code> with integer names and also creates a
+                        <code>site-indexed-array [parent].</code>
+                    </p>
+                    <div id="constructor" class="ms-5">
+                        <span class="fw-bold mt-5">Psuedo Code</span>
+                        <ul>
+                            <li>Initialize site-indexed array(parent[]) with N as number of Sites</li>
+                            <li>Initialize count as N signifying initially number of Sites equals number of Components
+                            </li>
+                            <li>Loop over site-indexed-array and set parent[i] as i</li>
+                        </ul>
+                        <span class="fw-bold mt-5">Actual Code</span>
+                        <pre>
+    public QuickUnion(int N){
+        parent = new int[N];
+        count = N;
+        for(int i = 0; i < N; i++) 
+            parent[i] = i;
+    }
+                        </pre>
+                    </div>
+                </div>
+                <div id="root-codes">
+                    <h4 class="fw-bold ">root(int i)</h4>
+                    <p>Calculate <code>root</code> of the ith Site
+                    </p>
+                    <div id="union-codes" class="ms-5">
+                        <span class="fw-bold mt-5">Psuedo Code</span>
+                        <ul>
+                            <li>Loop over the site-indexed-array until parent[i] becomes equal to i and update the
+                                pointer i</li>
+                            <li>Update the value of i</li>
+                        </ul>
+                        <span class="fw-bold mt-5">Actual Code</span>
+                        <pre>
+    private int root(int i){
+        while(parent[i] !=i) i = parent[i];
+        return i;
+    }
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <div id="union">
+                <h4 class="fw-bold">union(int p, int q)</h4>
+                <p>Connecting p and q in a network by combining two Components into one via updating all entries
+                    in
+                    parent[] corresponding to both sets of Sites as the same value.
+                </p>
+
+                <div id="union-codes" class="ms-5">
+                    <span class="fw-bold mt-5">Psuedo Code</span>
+                    <ul>
+                        <li>Fetch root of p and q using <code>root(int p)</code>internal function </li>
+                        <li>Update p's root to q's root</li>
+                        <li>Decrement the count variable</li>
+                    </ul>
+                    <span class="fw-bold mt-5">Actual Code</span>
+                    <pre>
+    public void union(int p, int q){
+        int pRoot = root(p);
+        int qRoot = root(q);
+        parent[pRoot] = qRoot;
+        count--;
+    }
+                        </pre>
+                </div>
+
+            </div>
+
+            <div id="connected">
+                <h4 class="fw-bold">connected(int p, int q)</h4>
+                <p>Returns a boolean value if p and q belong to the same Component.
+                </p>
+
+                <div id="connected-codes" class="ms-5">
+                    <span class="fw-bold mt-5">Psuedo Code</span>
+                    <ul>
+                        <li>Fetch root of p and q using <code>find</code> API.</li>
+                        <li>Compare the comparison result of both Component Ids</li>
+                    </ul>
+                    <span class="fw-bold mt-5">Actual Code</span>
+                    <pre>
+    public boolean connected(int p, int q){
+       return root(p) == root(q);
+    }
+                        </pre>
+                </div>
+
+            </div>
+
+            <div id="count">
+                <h4 class="fw-bold">count()</h4>
+                <p>Returns number of Components.
+                </p>
+
+                <div id="count-codes" class="ms-5">
+                    <span class="fw-bold mt-5">Psuedo Code</span>
+                    <ul>
+                        <li>Return the local variable of count</li>
+                    </ul>
+                    <span class="fw-bold mt-5">Actual Code</span>
+                    <pre>
+    public int count(){
+       return count;
+    }
+                        </pre>
+                </div>
+
+            </div>
+
+            <div id="implementation-code">
+                <h4 class="fw-bold display-5 mt-5">Implementation Code</h4>
+                <p>This is the implementation of Union Find using Quick Union. This also contains a client code
+                    which
+                    is modified to provide data to <code>QuickUnion</code> datastructure by leveraging an integer
+                    matrix where each
+                    row
+                    signifies
+                    connection between p and q. The client code also ignores extraneous pairs</p>
+                <pre>
+package com.edu.princetonalgorithm.datastructures.unionfind;
+
+public class QuickUnion {
+    int[] parent;
+    int count;
+    public QuickUnion(int N){
+        count = N;
+        parent = new int[N];
+        for(int i = 0; i < N; i++){
+            parent[i] = i;
+        }
+    }
+
+    private int root(int i){
+        while(parent[i] != i) i = parent[i];
+        return i;
+    }
+
+    public boolean connected(int p, int q){
+        return root(p) == root(q);
+    }
+
+    public void union(int p, int q){
+        int pRoot = root(p);
+        int qRoot = root(q);
+        parent[pRoot] = qRoot;
+        count--;
+    }
+
+    public int count(){
+        return  count;
+    }
+    
+
+    //client code
+    public static void main(String[] args) {
+        int N = 5;
+        int[][] connections = { { 0, 1 }, { 2, 3 }, { 0, 4 }, { 1, 4 } }; // pair 1-4 will be ignored
+        QuickUnion uf = new QuickUnion(N);
+        for (int[] connect : connections) {
+            int p = connect[0];
+            int q = connect[1];
+            if (uf.find(p) != uf.find(q)) {
+                uf.union(p, q);
+                System.out.println(p + " " + q);
+            }
+        }
+    }
+}
+
+                </pre>
+            </div>
+
+            <div id="analysis" style="margin-top:20px">
+                <h4 class="fw-bold display-5 mt-2">Analysis</h4>
+                <p>
+                    The <code>Quick Union</code> algorithm simplifies the <code>union()</code> operation compared to
+                    <code>Quick Find</code>. However, the efficiency of <code>Quick Union</code> can vary depending on
+                    the specific data set, sometimes taking more or less time. To address these variations, the
+                    <code>Weighted Quick Union</code> algorithm provides a more balanced and efficient solution.
+                </p>
+            </div>
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="module2.html">Go
+                Back to
+                Module
+                ></a>
+        </div>
+
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
+</body>
+
+</html>
