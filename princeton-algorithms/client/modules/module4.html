@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="display-4 fw-bold">Bags, Queues And Stacks</h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+                    The section introduces three fundamental data types <code>bag, queue, and stack</code> which are
+                    used for
+                    collections of objects and differ in the order of object removal or examination. It also introduces
+                    <code>generics </code> and <code>iteration</code> to simplify client code
+                </p>
+            </div>
+
+            <div id="generics" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Generics</h2>
+
+                <p>
+                    Generics ensure type safety, minimizes run-time error and they are used as a placeholder for type
+                    parameters used specifically for classess, methods and variables. It makes the code reusable as well
+                    <pre style="color:pink">
+        public class Box&lt;T&gt; {
+            private &lt;T&gt; value;
+            public &lt;T&gt; get(){
+                return value;
+            }
+        }
+                            </pre>
+                </p>
+
+            </div>
+
+            <div id="iterables" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Iterables <code>java.lang</code></h2>
+
+                <p>
+                    In Java, an "iterable" refers to any object that can be iterated over, meaning you can traverse
+                    through its elements sequentially. The main requirement for an object to be considered iterable is
+                    that it must implement the <code>Iterable interface </code>. This interface declares a single
+                    method, <code> iterator()</code>,
+                    which returns an <code> iterator</code> over the elements of the iterable
+                    <ul>
+                        <li>Iterable Interface: This interface is found in the <code>java.lang </code> package and has a
+                            method
+                            iterator() that returns an Iterator object.</li>
+                        <li>Iterator Interface: Objects that implement Iterator allow you to traverse through elements
+                            sequentially and typically support operations like <code>hasNext() and next(). </code></li>
+                        <li>Enhanced for:Each loop : Iterates over elements of collection or array. Below
+                            <code>iterableCollection</code> is a collection/array that should implement <code>Iterable
+                                Interface</code></li>
+                        <pre style="color:pink">
+for(elementType element : iterableCollection){}
+                            </pre>
+                    </ul>
+                    <h2 class="display-6 fw-bold">Example code to use Bag: </h2>
+                    <h4>Print prime numbers using Bag</h4>
+                    <pre style="color:pink">
+public class PrimeNumsBag&lt;T&gt; implements Iterable&lt;T&gt;{
+
+    public static boolean isPrime(int num){
+        for(int i = 2; i <= Math.sqrt(num); i++)
+            if(num % i == 0)
+                return false;
+            return true;
+    }
+
+    public static String printBagContents(Bag&lt;Integer&gt; bag){
+        Iterator&lt;Integer&gt; itr = bag.iterator();
+        String element = "";
+        while(itr.hasNext()){
+            element += "\n" + itr.next();
+        }
+        return element;
+    }
+    public static void main(String[] args){
+        Bag&lt;Integer&gt; bag = new Bag&lt;&gt;();
+        int limit = 10;
+
+        //loop over starting from 2 till limit 
+        for(int i = 2; i <= limit; i++){
+
+            //Check if number is prime
+            if(isPrime(i))
+            bag.add(i);     //Adding element in bag if prime
+        }
+        System.out.println("The prime numbers till " + limit + ":" + printBagContents(bag));
+    }
+}
+                   </pre>
+                </p>
+            </div>
+
+            <div id="apis" class="mb-3">
+                <h2 class="display-6 fw-bold">APIs</h2>
+                <div id="bag" class="mb-3">
+                    <span class="fw-bold">Bag</span> <br />
+                    <pre style="color:pink">
+public class Bag &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Bag()                   // create an empty bag
+    void add(T t)     // add an item
+    boolean isEmpty()       // is the bag empty?
+    int size()              // number of items in the bag
+}
+                    </pre>
+
+                    <span class="fw-bold">Queue</span> <br />
+                    <pre style="color:pink">
+public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Queue()                   // create an empty bag
+    void enqueue(T t)        // void add(T t); - throws exception // void offer(T t); - return value
+    boolean isEmpty()       // is the bag empty?
+    T dequeue()            // T remove(); - throws exception // T poll(); - returns value
+    int size()            // number of items in the queue
+}
+       </div>
+
+
+            </div>
+
+
+            <div id="queue" class="mb-3">
+                <h2 class="display-6 fw-bold">Queue</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">FIFO Queues</span> <br />
+                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which is enqueued is
+                        added at the end. And a number always at the start is dequeued
+                    </p>
+                    <pre style="color:pink">
+public static int[] readInts(String name){
+    In in = new In(name);
+    Queue&lt;Integer&gt; queue = new Queue&lt;&gt;();
+    while(!in.isEmpty())
+        q.enqueue(in.readInt());
+
+    int N = q.size();
+    int[] a = new int[N];
+    for(int i = 0; i <= N; i++)
+        a[i] = a.dequeue();
+    return a;   
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div id="concepts" style="margin-top:20px">
+
+            </div>
+
+
+            <div id="model" class="mb-3">
+
+            </div>
+
+            <div id="prediction" class="mb-3">
+
+            </div>
+
+
+            <div id="order-of-growth-types" style="margin-top:20px">
+                <h2 class="display-6 fw-bold"></h2>
+
+                <div id="constant" class="mb-3">
+
+                </div>
+
+                <div id="logarithmic" class="mb-3">
+                    <span class="fw-bold"></span><br />
+
+                    </pre>
+                </div>
+
+                <div id="linear" class="mb-3">
+
+                </div>
+
+                <div id="linearithmic" class="mb-3">
+
+                </div>
+
+                <div id="quadratic" class="mb-3">
+
+                </div>
+
+                <div id="cubic" class="mb-3">
+
+                </div>
+
+                <div id="exponential" class="mb-3">
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    </script>
+</body>
+
+</html>
