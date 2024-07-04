@@ -125,7 +125,20 @@ public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
     T dequeue()            // T remove(); - throws exception // T poll(); - returns value
     int size()            // number of items in the queue
 }
-       </div>
+</pre>
+
+                    <span class="fw-bold">Queue</span> <br />
+                    <pre style="color:pink">
+public class Stack &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Stack()                   // create an empty stack
+    void push(T t)           //  push item in the stack
+    boolean isEmpty()       // is the stack empty?
+    T pop()                // remove most recently added item in the stack
+    int size()            // number of items in the stack
+}
+</pre>
+                </div>
 
 
             </div>
@@ -135,7 +148,8 @@ public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
                 <h2 class="display-6 fw-bold">Queue</h2>
                 <div id="fifo-queue" class="mb-3">
                     <span class="fw-bold">FIFO Queues</span> <br />
-                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which is enqueued is
+                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which
+                        is enqueued is
                         added at the end. And a number always at the start is dequeued
                     </p>
                     <pre style="color:pink">
@@ -150,6 +164,28 @@ public static int[] readInts(String name){
     for(int i = 0; i <= N; i++)
         a[i] = a.dequeue();
     return a;   
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div id="stack" class="mb-3">
+                <h2 class="display-6 fw-bold">Stack</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">LIFO Stack</span> <br />
+                    <p>Items in stack addedd are processed in reverse order they were added or preserved. Any number
+                        which
+                        is pushed is
+                        added at the topo. And a number always at the end is popped
+                    </p>
+                    <pre style="color:pink">
+public static int[] readInts(String name){
+  In in = new In(name);
+  Stack&lt;Integer&gt; stack = new Stack &lt;&gt;();
+  while(!in.isEmpty())
+    stack.push(in.readInt());
+  for(int i: stack)
+  StdOut.println(i);
 }
                     </pre>
                 </div>
