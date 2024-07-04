@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="display-4 fw-bold">Analysis of Algorithm</h1>
+
+            <div id="terminologies" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Terminologies</h2>
+                <div id="input-size" class="mb-3">
+                    <span class="fw-bold">n</span> <br />
+                    Input size given to the program
+                </div>
+
+                <div id="running-time" class="mb-3">
+                    <span class="fw-bold ">T(n)</span> <br />
+                    Running time of the program under analysis
+                </div>
+                <div id="input-model" class="mb-3">
+                    <span class="fw-bold ">Input model</span> <br />
+                    Data given to program in the form of data-structure
+                </div>
+
+            </div>
+
+            <div id="concepts" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Concepts</h2>
+
+                <div id="observations" class="mb-3">
+                    <span class="fw-bold">Observations</span><br />
+                    Values obtained by running the algorithm against multiple value of <code>n</code>.
+                </div>
+
+                <div id="hypothesis" class="mb-3">
+                    <span class="fw-bold">Hypothesis</span><br />
+                    Supposition or proposed explanation based on limites <code>Observation</code>.
+                </div>
+
+
+                <div id="model" class="mb-3">
+                    <span class="fw-bold">Model</span><br />
+                    Implements the hypothesis for predictions, e.g., T(n) is the running time as a function of
+                    <code>n</code>.
+                </div>
+
+                <div id="prediction" class="mb-3">
+                    <span class="fw-bold">Prediction</span><br />
+                    Outcome of model for the given input size <code>n</code>
+                </div>
+            </div>
+
+            <div id="order-of-growth-types" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Types of order of growth</h2>
+
+                <div id="constant" class="mb-3">
+                    <span class="fw-bold">Constant</span><br />
+                    The order of growth is <code> 1</code>.
+                    <pre style="color:gray">
+a = b + c
+                    </pre>
+                </div>
+
+                <div id="logarithmic" class="mb-3">
+                    <span class="fw-bold">Logarithmic</span><br />
+                    The order of growth is <code> log N</code>.
+                    <pre style="color:gray">
+Binary search divides in half the search space
+                    </pre>
+                </div>
+
+                <div id="linear" class="mb-3">
+                    <span class="fw-bold">Linear</span><br />
+                    The order of growth is <code> N</code>.
+                    <pre style="color:gray">
+double max = a[0];
+for(int i = 0; i < N; i++)
+    if(a[i] &gt; a[max])
+        max = a[i];
+                    </pre>
+                </div>
+
+                <div id="linearithmic" class="mb-3">
+                    <span class="fw-bold">Linearithmic</span><br />
+                    The order of growth is <code> NlogN </code>.
+                    <pre style="color:gray">
+Divide and conquer algorithm - MergeSort
+                    </pre>
+                </div>
+
+                <div id="quadratic" class="mb-3">
+                    <span class="fw-bold">Quadratic</span><br />
+                    The order of growth is <code>N<sup>2</sup></code>.
+                    <pre style="color:gray">
+for(int i = 0; i &lt; N; i++)
+    for(int j = i + 1; j &lt; N; j++)
+        if(a[i] + a[j] == 0)
+            cnt++;
+                    </pre>
+                </div>
+
+                <div id="cubic" class="mb-3">
+                    <span class="fw-bold">Cubic</span><br />
+                    The order of growth is <code>N<sup>3</sup></code>.
+                    <pre style="color:gray">
+for(int i = 0; i &lt; N; i++)
+    for(int j = i + 1; j &lt; N; j++)
+        for(int k = i + 2; k &lt; N; ;++)
+        if(a[i] + a[j] + a[k] == 0)
+            cnt++;
+                    </pre>
+                </div>
+
+                <div id="exponential" class="mb-3">
+                    <span class="fw-bold">Exponential</span><br />
+                    The order of growth is <code>2<sup>N</sup></code>.
+                    <pre style="color:gray">
+Exhaustive search
+                    </pre>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    </script>
+</body>
+
+</html>
