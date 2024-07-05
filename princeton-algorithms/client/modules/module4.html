@@ -125,7 +125,32 @@ public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
     T dequeue()            // T remove(); - throws exception // T poll(); - returns value
     int size()            // number of items in the queue
 }
-       </div>
+</pre>
+
+                    <span class="fw-bold">Stack</span> <br />
+                    <pre style="color:pink">
+public class Stack &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Stack()                   // create an empty stack
+    void push(T t)           //  push item in the stack
+    boolean isEmpty()       // is the stack empty?
+    T pop()                // remove most recently added item in the stack
+    int size()            // number of items in the stack
+}
+</pre>
+
+                    <span class="fw-bold">Fixed Capacity Stack Strings</span> <br />
+                    <pre style="color:pink">
+public class FixedCapacityStack(int cap)
+{
+FixedCapacityStack(int cap)        // create an empty stack
+void push(String item)            //  push only strings
+boolean isEmpty()                // is the stack empty?
+String pop()                    // remove most recently added item in the stack
+int size()                      // number of items in the stack
+}
+</pre>
+                </div>
 
 
             </div>
@@ -135,7 +160,8 @@ public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
                 <h2 class="display-6 fw-bold">Queue</h2>
                 <div id="fifo-queue" class="mb-3">
                     <span class="fw-bold">FIFO Queues</span> <br />
-                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which is enqueued is
+                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which
+                        is enqueued is
                         added at the end. And a number always at the start is dequeued
                     </p>
                     <pre style="color:pink">
@@ -155,61 +181,125 @@ public static int[] readInts(String name){
                 </div>
             </div>
 
-            <div id="concepts" style="margin-top:20px">
-
-            </div>
-
-
-            <div id="model" class="mb-3">
-
-            </div>
-
-            <div id="prediction" class="mb-3">
-
-            </div>
-
-
-            <div id="order-of-growth-types" style="margin-top:20px">
-                <h2 class="display-6 fw-bold"></h2>
-
-                <div id="constant" class="mb-3">
-
-                </div>
-
-                <div id="logarithmic" class="mb-3">
-                    <span class="fw-bold"></span><br />
-
+            <div id="stack" class="mb-3">
+                <h2 class="display-6 fw-bold">Stack</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">LIFO Stack</span> <br />
+                    <p>Items in stack addedd are processed in reverse order they were added or preserved. Any number
+                        which
+                        is pushed is
+                        added at the topo. And a number always at the end is popped
+                    </p>
+                    <pre style="color:pink">
+public static int[] readInts(String name){
+  In in = new In(name);
+  Stack&lt;Integer&gt; stack = new Stack &lt;&gt;();
+  while(!in.isEmpty())
+    stack.push(in.readInt());
+  for(int i: stack)
+  StdOut.println(i);
+}
                     </pre>
                 </div>
+                <h2 class="display-6 fw-bold">Fixed Capacity Stack Strings</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">Fixed Capacity</span> <br />
+                    <p>This kind of stack only supports strings and it does not support iteration and it needs a client
+                        to specify the size.
+                    </p>
 
-                <div id="linear" class="mb-3">
+                    <pre style="color:pink">
+public static void main(String[] args){
+    FixedCapacityStackOfStrings s = new FixedCapacityStackOfStrings(100);
+    while(!StdIn.isEmpty)
+{
+    String item = StdIn.readString();
+    if(!item.equals("-"))
+        s.push(item)
+    else if(!s.isEmpty())
+        StdOut.print(s.pop() + "");
+}
+    System.out.println(s.size());
+}
+                    </pre>
+
+                    <p class="fw-bold mb-2">Creation of Generic type of array is not allowed in java. Instead we
+                        create an
+                        array of Object and typecast it to generic type <code>(Item[]) new Object(cap)</code>.
+                        All other operations are similar</p>
+                    <pre style="color:pink">
+public class GenericFixedCapacityStack<T> {
+
+    private T[] a;
+    private int N;
+
+    public GenericFixedCapacityStack(int cap) {
+        a = (T[]) new Object[cap]; // Creation of generic array
+
+    } }
+                    </pre>
 
                 </div>
 
-                <div id="linearithmic" class="mb-3">
+                <div id="array-resizing" style="margin-top:20px">
+                    <h2 class="display-6 fw-bold">Array-resizing stack</h2>
+                    <div id="fifo-queue" class="mb-3">
+                        <span class="fw-bold">Array resizing</span> <br />
+                        <p>Resize the array such that no memory is wasted or overflow.</p>
+                        <pre style="color:pink">
+//Dynamically adjust size of array 'a' that stores elements of the stack
+public void resize(int max)         // max is new size of the array
+{
+    // we create temp array which will temporary hold the elements of array during resize processed
+    T[] temp = (T[]) new Object[max];
 
+    //copy all the elments from old array to new array
+    for(int i = 0; i < N; i++)
+        temp[i] = a[i];
+
+    // store elements in old array 'a'
+    a = temp;   
+}
+                        </pre>
+                        <span class="fw-bold">push operation</span> <br />
+                        <p>
+                            Add item to the top of the stack
+                        </p>
+                        <pre style="color:pink">
+public void push(String item){
+    if(N == a.length)
+    resize(2*a.length);
+    a[N++] = item;
+}
+                        </pre>
+                        <span class="fw-bold">pop operation</span> <br />
+                        <p>
+                            Remove and return item to the top of the stack.
+                            <code>Loitering</code> is a situation when references to memory still exists even when the
+                            objects no longer needed. It prevents garbage collector from reclaiming the memory used by
+                            these objects
+                        </p>
+                        <pre style="color:pink">
+public String pop(){
+    String item = a[--N];
+    a[N] = null;                   //To avoid loitering
+    if(N > 0  && N == a.length/4)
+    return item;
+ }
+                        </pre>
+                    </div>
                 </div>
 
-                <div id="quadratic" class="mb-3">
 
-                </div>
+                <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="Iterators.html">
+                    Learn more about Iterables & Iterators
 
-                <div id="cubic" class="mb-3">
-
-                </div>
-
-                <div id="exponential" class="mb-3">
-
-                </div>
-
+                    ></a>
             </div>
 
-
         </div>
-
-    </div>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
-    </script>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
 </body>
 
 </html>

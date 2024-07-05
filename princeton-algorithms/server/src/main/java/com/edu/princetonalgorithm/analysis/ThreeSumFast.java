@@ -1,12 +1,14 @@
 package com.edu.princetonalgorithm.analysis;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ThreeSumFast {
 
     public static int threeSumFastest(int[] arr) {
         Map<Integer, Integer> map = new HashMap<>();
+
         int count = 0;
 
         // Fill the map with element and its index
