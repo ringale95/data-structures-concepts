@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark bg-gradient text-white">
+    <div class="container p-5 mb-2">
+        <div>
+            <h1>What is LinkedList?</h1>
+            <p>LinkedList is a recursive data structure that is either empty(null) or reference to a node having generic
+                item and a reference to a linked list. Benefit is it is easier to insert or remove element than in array
+            </p>
+
+            <p>LinkedList are faster than resizing array but it might be slower and take more space than array. If we
+                want to perform and preserve all the data quickly should go with linkedlist. Resizing array will call
+                resize() method when the stack of size is power of 2</p>
+            <ul class="mt-4 display : fw-bold">
+                <li>Node : Contains parameterized Item parameterized type and a Node. It is private class inside main
+                    class and not accessible by clients</li>
+
+                //8 bytes overhead for this clss
+                <pre style="color:pink">
+                    private class Node{
+                        Node next;
+                        Item item;
+                    }
+                </pre>
+            </ul>
+            <h4>To create a node : </h4>
+            <pre style="color:pink">
+Node first = new Node();
+Node second = new Node();
+Node third = new Node();
+
+//set the data
+first.item = "to";
+second.item = "be"; 
+
+// link the linkedlist to each other
+first.next = second;
+second.next = third;
+third.next = null;
+
+            </pre>
+
+            <p class="display-5"> How to insert a node in the beginning? <a href="#beginning">Click Here ></a></p>
+            <p class="display-5"> How to remove a node from the beginning?<a href="#remove-beginning">Click Here ></a>
+                <p class="display-5"> How to insert a node to the end?<a href="#insert-end">Click Here ></a></p>
+                <p class="display-5"> How to remove a node to the end?<a href="#remove-end">Click Here ></a></p>
+        </div>
+
+        <div id="beginning" class="mt-5">
+            <h3 style="color:dodgerblue">Insert a node in the beginning</h3>
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre style="color:pink">
+public class InsertNodeAtBeginning {
+    
+    private class Node{
+        Item item;
+        Node next;
+    }
+
+   private Node first;          // first node
+   private int N;               // number of items
+
+   public void push(Item item){
+    Node oldFirst = first;
+    first = new Node();
+    first.item = item;
+    first.next = oldFirst;
+    N++;
+   }   
+}      
+        </div>
+
+        <div id="remove-beginning" class="mt-5">
+            <h3 style="color:dodgerblue">Remove a node from beginning</h3>
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre style="color:pink">
+public Item RemoveFromBeginning(){
+    Item item = first.item;
+    first = first.next();
+    N--;
+    return item
+}
+        </pre>
+        </div>
+
+        <div id="insert-end" class="mt-5">
+            <h3 style="color:dodgerblue">Insert a node in the end</h3>
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre style="color:pink">
+public class InsertNodeInEnd {
+    
+    private class Node{
+        Item item;
+        Node next;
+    }
+
+   private Node first;          // first node
+   private int N;               // number of items
+
+   public void enqueu(Item item){
+    Node oldLast = last;
+    last = new Node();
+    last.item = item;
+    last.next = null;
+    if(isEmpty())
+        first = last;
+    else
+        oldLast.next = last;
+    
+    N++;
+   }   
+}      
+        </div>
+
+        <div id="remove-end" class="mt-5">
+            <h3 style="color:dodgerblue">Remove a node from Last end</h3>
+            <strong style="display: block" class="mt-4">Code:</strong>
+            <pre style="color:pink">
+public Item RemoveFromEnd(){
+    Item item = first.item;
+    first = first.next();
+    if(isEmpty()) last = null;
+    N--;
+    return item
+}
+        </pre>
+        </div>
+
+
+        <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="module4.html">Go
+            Back to
+            Module
+            ></a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
