@@ -1,6 +1,7 @@
 package com.edu.princetonalgorithm.assignment;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Deque<T> implements Iterable<T> {
 
@@ -15,41 +16,52 @@ public class Deque<T> implements Iterable<T> {
     private int count;
 
     public Deque() {
-
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        head = null;
+        tail = null;
+        count = 0;
     }
 
     private boolean isEmpty() {
-        return head == null;
+        return count == 0;
     }
 
     private void addFirst(T t) {
-        Node<T> oldHead = head;
-        head = new Node<>();
-        head.data = t;
-        head.next = oldHead;
 
-        // If dequeu is empty
-        if (tail == null)
-            tail = head;
-        else
-            oldHead.prev = head;
+        if (t == null)
+            throw new IllegalArgumentException("Cannot add null item to the deque");
+
+        // Wrap data inside newNode
+        Node<T> newNode = new Node<>();
+        newNode.data = t;
+
+        // Update pointers
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            head.prev = newNode;
+            newNode.next = head;
+            head = newNode;
+        }
         count++;
     }
 
     private T removeFirst() {
-        T data = head.data;
-        head = head.next;
 
         if (head == null)
-            tail = null; // to avoid loitering
+            throw new NoSuchElementException("Element not found!");
+
+        // unwrap data
+        T data = head.data;
+        // update pointers
+        head = head.next;
+
+        // after update check if the list is empty or not
+        if (head == null)
+            tail = null;
         else
             head.prev = null;
+
         count--;
         return data;
     }
@@ -59,25 +71,68 @@ public class Deque<T> implements Iterable<T> {
     }
 
     private T removeLast() {
+        if (tail == null)
+            throw new NoSuchElementException("Not found!");
+
+        // unwrap data and take backup
         T data = tail.data;
         tail = tail.prev;
-        if (tail != null)
-            tail.next = null; // nextent loitering
+
+        if (tail == null)
+            head = null; // prevent loitering if empty
+        else
+            tail.next = null;
         count--;
         return data;
     }
 
     private void addLast(T t) {
-        Node<T> oldTail = tail;
-        tail = new Node<>();
-        tail.data = t;
-        tail.prev = oldTail;
+        if (t == null)
+            throw new IllegalArgumentException("Cannot add null item to the deque");
 
-        if (head == null)
-            head = tail;
-        else if (oldTail != null)
-            oldTail.next = tail;
+        // Create a new node
+        Node<T> newLast = new Node<>();
+        // wrap data
+        newLast.data = t;
+
+        // check if deque is empty if yes then both head and tail points to new node
+        if (tail == null) {
+            tail = newLast;
+            head = newLast;
+        } else {
+            tail.next = newLast;
+            newLast.prev = tail;
+            tail = newLast;
+        }
         count++;
+
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator<T>(head);
+    }
+
+    private class LinkedListIterator<T> implements Iterator<T> {
+        Node<T> current;
+
+        public LinkedListIterator(Node head) {
+            current = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext())
+                throw new NoSuchElementException("No more elements found in the deque!");
+            T data = current.data;
+            current = current.next;
+            return data;
+        }
     }
 
     public static void main(String[] args) {
@@ -142,6 +197,14 @@ public class Deque<T> implements Iterable<T> {
         deque.addLast(3);
         System.out.println("Expected : 3\nActual : " + deque.removeLast());
         System.out.println("Expected : 2\nActual : " + deque.removeLast());
+
+        deque = new Deque<>();
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        Iterator<Integer> itr = deque.iterator();
+        while (itr.hasNext())
+            System.out.println(itr.next());
     }
 
 }
