@@ -12,6 +12,7 @@ do
 done
 
 cd "$DEST_DIR"
+git pull origin main
 git add .
 git commit -m "done"
 git push origin main
