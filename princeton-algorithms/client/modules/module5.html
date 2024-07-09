@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="display-4 fw-bold">Elementary Sorts</h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+                    Key objective of the sorting algorithm is to rearrange items such that their keys are ordered
+                    numerically or alphabetically.
+                </p>
+            </div>
+
+            <div id="generics" style="margin-top:20px">
+                <h2 class="display-6 fw-bold"> Template for sort classes :</h2>
+
+                <p>
+
+                    <pre style="color:pink">
+public class Example{
+    public static void sort(Comparable[] a){}
+    public static boolean less(Comparable v, Comparable w){
+        return v.compareTo(w) < 0;
+    }
+    public static void exch(Comparable[] a, int i, int j){
+        Comparable t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    public void show(Comparable[] a){
+        for(int i = 0; i &lt; a.length; i++)
+            StdOut.print(a[i] + " ")
+        StdOut.println();
+    }
+    public static boolean isSorted(Comparable[] a){
+        for(int i = 1; i &lt; a.length; i++)
+            if(less(a[i], a[i-1])) return false
+        return true;
+    }
+    public static void main(String[] args){
+        String[] a = In.readStrings();
+        sort(a);
+        assert.isSorted(a);
+        show(a);
+    }
+}
+
+                    </pre>
+                </p>
+
+            </div>
+
+            <div id="iterables" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Iterables <code>java.lang</code></h2>
+
+                <p>
+                    In Java, an "iterable" refers to any object that can be iterated over, meaning you can traverse
+                    through its elements sequentially. The main requirement for an object to be considered iterable is
+                    that it must implement the <code>Iterable interface </code>. This interface declares a single
+                    method, <code> iterator()</code>,
+                    which returns an <code> iterator</code> over the elements of the iterable
+                    <ul>
+                        <li>Iterable Interface: This interface is found in the <code>java.lang </code> package and has a
+                            method
+                            iterator() that returns an Iterator object.</li>
+                        <li>Iterator Interface: Objects that implement Iterator allow you to traverse through elements
+                            sequentially and typically support operations like <code>hasNext() and next(). </code></li>
+                        <li>Enhanced for:Each loop : Iterates over elements of collection or array. Below
+                            <code>iterableCollection</code> is a collection/array that should implement <code>Iterable
+                                Interface</code></li>
+                        <pre style="color:pink">
+for(elementType element : iterableCollection){}
+                            </pre>
+                    </ul>
+                    <h2 class="display-6 fw-bold">Example code to use Bag: </h2>
+                    <h4>Print prime numbers using Bag</h4>
+                    <pre style="color:pink">
+public class PrimeNumsBag&lt;T&gt; implements Iterable&lt;T&gt;{
+
+    public static boolean isPrime(int num){
+        for(int i = 2; i <= Math.sqrt(num); i++)
+            if(num % i == 0)
+                return false;
+            return true;
+    }
+
+    public static String printBagContents(Bag&lt;Integer&gt; bag){
+        Iterator&lt;Integer&gt; itr = bag.iterator();
+        String element = "";
+        while(itr.hasNext()){
+            element += "\n" + itr.next();
+        }
+        return element;
+    }
+    public static void main(String[] args){
+        Bag&lt;Integer&gt; bag = new Bag&lt;&gt;();
+        int limit = 10;
+
+        //loop over starting from 2 till limit 
+        for(int i = 2; i <= limit; i++){
+
+            //Check if number is prime
+            if(isPrime(i))
+            bag.add(i);     //Adding element in bag if prime
+        }
+        System.out.println("The prime numbers till " + limit + ":" + printBagContents(bag));
+    }
+}
+                   </pre>
+                </p>
+            </div>
+
+            <div id="apis" class="mb-3">
+                <h2 class="display-6 fw-bold">APIs</h2>
+                <div id="bag" class="mb-3">
+                    <span class="fw-bold">Bag</span> <br />
+                    <pre style="color:pink">
+public class Bag &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Bag()                   // create an empty bag
+    void add(T t)     // add an item
+    boolean isEmpty()       // is the bag empty?
+    int size()              // number of items in the bag
+}
+                    </pre>
+
+                    <span class="fw-bold">Queue</span> <br />
+                    <pre style="color:pink">
+public class Queue &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Queue()                   // create an empty bag
+    void enqueue(T t)        // void add(T t); - throws exception // void offer(T t); - return value
+    boolean isEmpty()       // is the bag empty?
+    T dequeue()            // T remove(); - throws exception // T poll(); - returns value
+    int size()            // number of items in the queue
+}
+</pre>
+
+                    <span class="fw-bold">Stack</span> <br />
+                    <pre style="color:pink">
+public class Stack &lt;T&gt; implements Iterable &lt;T&gt;
+{
+    Stack()                   // create an empty stack
+    void push(T t)           //  push item in the stack
+    boolean isEmpty()       // is the stack empty?
+    T pop()                // remove most recently added item in the stack
+    int size()            // number of items in the stack
+}
+</pre>
+
+                    <span class="fw-bold">Fixed Capacity Stack Strings</span> <br />
+                    <pre style="color:pink">
+public class FixedCapacityStack(int cap)
+{
+FixedCapacityStack(int cap)        // create an empty stack
+void push(String item)            //  push only strings
+boolean isEmpty()                // is the stack empty?
+String pop()                    // remove most recently added item in the stack
+int size()                      // number of items in the stack
+}
+</pre>
+                </div>
+
+
+            </div>
+
+
+            <div id="queue" class="mb-3">
+                <h2 class="display-6 fw-bold">Queue</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">FIFO Queues</span> <br />
+                    <p>Items in queue addedd are processed in the order they were added or preserved. Any number which
+                        is enqueued is
+                        added at the end. And a number always at the start is dequeued
+                    </p>
+                    <pre style="color:pink">
+public static int[] readInts(String name){
+    In in = new In(name);
+    Queue&lt;Integer&gt; queue = new Queue&lt;&gt;();
+    while(!in.isEmpty())
+        q.enqueue(in.readInt());
+
+    int N = q.size();
+    int[] a = new int[N];
+    for(int i = 0; i <= N; i++)
+        a[i] = a.dequeue();
+    return a;   
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div id="stack" class="mb-3">
+                <h2 class="display-6 fw-bold">Stack</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">LIFO Stack</span> <br />
+                    <p>Items in stack addedd are processed in reverse order they were added or preserved. Any number
+                        which
+                        is pushed is
+                        added at the topo. And a number always at the end is popped
+                    </p>
+                    <pre style="color:pink">
+public static int[] readInts(String name){
+  In in = new In(name);
+  Stack&lt;Integer&gt; stack = new Stack &lt;&gt;();
+  while(!in.isEmpty())
+    stack.push(in.readInt());
+  for(int i: stack)
+  StdOut.println(i);
+}
+                    </pre>
+                </div>
+                <h2 class="display-6 fw-bold">Fixed Capacity Stack Strings</h2>
+                <div id="fifo-queue" class="mb-3">
+                    <span class="fw-bold">Fixed Capacity</span> <br />
+                    <p>This kind of stack only supports strings and it does not support iteration and it needs a client
+                        to specify the size.
+                    </p>
+
+                    <pre style="color:pink">
+public static void main(String[] args){
+    FixedCapacityStackOfStrings s = new FixedCapacityStackOfStrings(100);
+    while(!StdIn.isEmpty)
+{
+    String item = StdIn.readString();
+    if(!item.equals("-"))
+        s.push(item)
+    else if(!s.isEmpty())
+        StdOut.print(s.pop() + "");
+}
+    System.out.println(s.size());
+}
+                    </pre>
+
+                    <p class="fw-bold mb-2">Creation of Generic type of array is not allowed in java. Instead we
+                        create an
+                        array of Object and typecast it to generic type <code>(Item[]) new Object(cap)</code>.
+                        All other operations are similar</p>
+                    <pre style="color:pink">
+public class GenericFixedCapacityStack<T> {
+
+    private T[] a;
+    private int N;
+
+    public GenericFixedCapacityStack(int cap) {
+        a = (T[]) new Object[cap]; // Creation of generic array
+
+    } }
+                    </pre>
+
+                </div>
+
+                <div id="array-resizing" style="margin-top:20px">
+                    <h2 class="display-6 fw-bold">Array-resizing stack</h2>
+                    <div id="fifo-queue" class="mb-3">
+                        <span class="fw-bold">Array resizing</span> <br />
+                        <p>Resize the array such that no memory is wasted or overflow.</p>
+                        <pre style="color:pink">
+//Dynamically adjust size of array 'a' that stores elements of the stack
+public void resize(int max)         // max is new size of the array
+{
+    // we create temp array which will temporary hold the elements of array during resize processed
+    T[] temp = (T[]) new Object[max];
+
+    //copy all the elments from old array to new array
+    for(int i = 0; i < N; i++)
+        temp[i] = a[i];
+
+    // store elements in old array 'a'
+    a = temp;   
+}
+                        </pre>
+                        <span class="fw-bold">push operation</span> <br />
+                        <p>
+                            Add item to the top of the stack
+                        </p>
+                        <pre style="color:pink">
+public void push(String item){
+    if(N == a.length)
+    resize(2*a.length);
+    a[N++] = item;
+}
+                        </pre>
+                        <span class="fw-bold">pop operation</span> <br />
+                        <p>
+                            Remove and return item to the top of the stack.
+                            <code>Loitering</code> is a situation when references to memory still exists even when the
+                            objects no longer needed. It prevents garbage collector from reclaiming the memory used by
+                            these objects
+                        </p>
+                        <pre style="color:pink">
+public String pop(){
+    String item = a[--N];
+    a[N] = null;                   //To avoid loitering
+    if(N > 0  && N == a.length/4)
+    return item;
+ }
+                        </pre>
+                    </div>
+                </div>
+
+
+                <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="iterators.html">
+                    Learn more about Iterables & Iterators
+                    ></a>
+
+                <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="linkedlist.html">
+                    Learn more about LinkedList
+                    ></a>
+            </div>
+
+        </div>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
+</body>
+
+</html>
