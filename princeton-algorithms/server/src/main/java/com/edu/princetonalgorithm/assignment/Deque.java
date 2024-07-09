@@ -3,16 +3,16 @@ package com.edu.princetonalgorithm.assignment;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Deque<T> implements Iterable<T> {
+public class Deque<Item> implements Iterable<Item> {
 
-    private class Node<T> {
-        private T data;
-        private Node next;
-        private Node prev;
+    private class Node<Item> {
+        private Item data;
+        private Node<Item> next;
+        private Node<Item> prev;
     }
 
-    private Node<T> head;
-    private Node<T> tail;
+    private Node<Item> head;
+    private Node<Item> tail;
     private int count;
 
     public Deque() {
@@ -21,18 +21,17 @@ public class Deque<T> implements Iterable<T> {
         count = 0;
     }
 
-    private boolean isEmpty() {
-        return count == 0;
+    public boolean isEmpty() {
+        return count == 0; // number of items
     }
 
-    private void addFirst(T t) {
-
-        if (t == null)
+    public void addFirst(Item item) {
+        if (item == null)
             throw new IllegalArgumentException("Cannot add null item to the deque");
 
         // Wrap data inside newNode
-        Node<T> newNode = new Node<>();
-        newNode.data = t;
+        Node<Item> newNode = new Node<>();
+        newNode.data = item;
 
         // Update pointers
         if (head == null) {
@@ -46,13 +45,12 @@ public class Deque<T> implements Iterable<T> {
         count++;
     }
 
-    private T removeFirst() {
-
+    public Item removeFirst() {
         if (head == null)
             throw new NoSuchElementException("Element not found!");
 
         // unwrap data
-        T data = head.data;
+        Item data = head.data;
         // update pointers
         head = head.next;
 
@@ -66,16 +64,16 @@ public class Deque<T> implements Iterable<T> {
         return data;
     }
 
-    private int size() {
+    public int size() {
         return count;
     }
 
-    private T removeLast() {
+    public Item removeLast() {
         if (tail == null)
             throw new NoSuchElementException("Not found!");
 
         // unwrap data and take backup
-        T data = tail.data;
+        Item data = tail.data;
         tail = tail.prev;
 
         if (tail == null)
@@ -86,12 +84,12 @@ public class Deque<T> implements Iterable<T> {
         return data;
     }
 
-    private void addLast(T t) {
+    public void addLast(Item t) {
         if (t == null)
             throw new IllegalArgumentException("Cannot add null item to the deque");
 
         // Create a new node
-        Node<T> newLast = new Node<>();
+        Node<Item> newLast = new Node<>();
         // wrap data
         newLast.data = t;
 
@@ -105,18 +103,17 @@ public class Deque<T> implements Iterable<T> {
             tail = newLast;
         }
         count++;
-
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new LinkedListIterator<T>(head);
+    public Iterator<Item> iterator() {
+        return new LinkedListIterator(head);
     }
 
-    private class LinkedListIterator<T> implements Iterator<T> {
-        Node<T> current;
+    private class LinkedListIterator implements Iterator<Item> {
+        Node<Item> current;
 
-        public LinkedListIterator(Node head) {
+        public LinkedListIterator(Node<Item> head) {
             current = head;
         }
 
@@ -126,10 +123,10 @@ public class Deque<T> implements Iterable<T> {
         }
 
         @Override
-        public T next() {
+        public Item next() {
             if (!hasNext())
                 throw new NoSuchElementException("No more elements found in the deque!");
-            T data = current.data;
+            Item data = current.data;
             current = current.next;
             return data;
         }
@@ -206,5 +203,4 @@ public class Deque<T> implements Iterable<T> {
         while (itr.hasNext())
             System.out.println(itr.next());
     }
-
 }

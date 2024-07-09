@@ -13,7 +13,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private static final int DEFAULT_CAPACITY = 10;
 
     /*
-     * Internal Array which holds elements of
+     * Internal Array w hich holds elements of
      * Randomized Queue. This would resized as
      * per the state of the elements within the
      * Randomized Queue.
@@ -26,7 +26,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     private int count;
 
-    // construct an empty randomized queue
     public RandomizedQueue() {
         elementDataItems = (Item[]) new Object[DEFAULT_CAPACITY];
         count = 0;
@@ -37,12 +36,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return count == 0;
     }
 
-    // return the number of items on the randomized queue
     public int size() {
         return count;
     }
 
-    // add the item
     public void enqueue(Item item) {
         if (item == null)
             throw new IllegalArgumentException("Item cannot be null");
@@ -53,72 +50,61 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private void resize(int capacity) {
         Item[] newArr = (Item[]) new Object[capacity];
-        for (int i = 0; i < elementDataItems.length; i++)
-            newArr[i] = elementDataItems[i];
+        System.arraycopy(elementDataItems, 0, newArr, 0, count);
         elementDataItems = newArr;
     }
 
-    // remove and return a random item
     public Item dequeue() {
         if (isEmpty())
             throw new NoSuchElementException("Randomized Queue is empty!");
-        int randomIndex = StdRandom.uniformInt(count); // returns a random integer from 0 to count
-        Item item = elementDataItems[randomIndex]; // take the backup of randomIndex value
-        elementDataItems[randomIndex] = elementDataItems[--count]; // make the value of randomIndex the last value
-        elementDataItems[count] = null; // free the last index
+        int randomIndex = StdRandom.uniformInt(count);
+        Item item = elementDataItems[randomIndex];
+        elementDataItems[randomIndex] = elementDataItems[--count];
+        elementDataItems[count] = null;
 
         if (count > 0 && count == elementDataItems.length / 4)
             resize(elementDataItems.length / 2);
         return item;
     }
 
-    // return a random item (but do not remove it)
     public Item sample() {
         if (isEmpty())
             throw new NoSuchElementException("Randomized Queue is empty!");
-        // just return the value without removing
         return elementDataItems[StdRandom.uniformInt(count)];
     }
 
-    // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
-        return new RandomizedIterator<Item>(elementDataItems);
+        return new RandomizedIterator(elementDataItems, count);
     }
 
-    private class RandomizedIterator<T> implements Iterator<T> {
-        private T[] copy;
+    private class RandomizedIterator implements Iterator<Item> {
+        private Item[] copy;
         private int current;
 
-        public RandomizedIterator(T[] data) {
-            // Clone RQ array & shuffle
-            copy = (T[]) new Object[data.length];
-            for (int i = 0; i < data.length; i++)
-                copy[i] = data[i];
+        public RandomizedIterator(Item[] data, int size) {
+            copy = (Item[]) new Object[size];
+            System.arraycopy(data, 0, copy, 0, size);
             StdRandom.shuffle(copy);
-
-            // Initially current point at last index
-            current = copy.length - 1;
+            current = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return current >= 0;
+            return current < copy.length;
+        }
+
+        @Override
+        public Item next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            return copy[current++];
         }
 
         public void remove() {
             throw new UnsupportedOperationException();
         }
-
-        @Override
-        public T next() {
-            if (!hasNext())
-                throw new NoSuchElementException();
-            return copy[current--];
-        }
-
     }
 
-    // unit testing (required)
     public static void main(String[] args) {
         RandomizedQueue<Integer> rq = new RandomizedQueue<>();
         rq.enqueue(1);
@@ -132,5 +118,4 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         System.out.println(rq.dequeue());
         System.out.println("Size after dequeue one element : " + rq.size());
     }
-
 }
