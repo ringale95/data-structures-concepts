@@ -1,17 +1,13 @@
 #!/bin/bash
 
-SOURCE_DIR="/code/allAboutJava/princeton-algorithms/client/modules"
-DEST_DIR="/Desktop/ingale95.github.io"
-
+SOURCE_DIR="/Users/ingale.r/code/allAboutJava/princeton-algorithms/client/modules"
+DEST_DIR="/Users/ingale.r/Desktop/ringale95.github.io"
 
 cd "$SOURCE_DIR"
-
-for f in *.html
-do 
-   cp -v "$f" "$DEST_DIR/${f%.html}$(date +%m%d%y).html"
-done
+cp -r ./** $DEST_DIR
 
 cd "$DEST_DIR"
+git pull origin main
 git add .
 git commit -m "done"
 git push origin main

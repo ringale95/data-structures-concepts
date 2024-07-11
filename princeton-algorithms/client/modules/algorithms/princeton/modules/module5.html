@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="display-4 fw-bold">Elementary Sorts</h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+                    Key objective of the sorting algorithm is to rearrange items such that their keys are ordered
+                    numerically or alphabetically.
+                </p>
+            </div>
+
+            <div id="typeOfData" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Type of Data </h2>
+
+                <p>
+                    Above code is effective for data type that implements <code>Comparable</code>. Many data types in
+                    Java like <code> Integer, Double, Float, Strings </code> implements Comparable so we have methods
+                    like <code>compareTo()</code>.
+                    <pre>
+    v.compareTo(w)  // compares v and w and return Negative if v < w else positive and 0 if equals
+                                
+                        </pre>
+                </p>
+            </div>
+
+            <div id="api">
+                <h4 class="fw-bold display-5 ">APIs</h4>
+                <span class="fw-bold mt-5">sort(Comparable[] a)</span>
+                <p>
+                    Sort the given array into increasing order of the sequence.
+                </p>
+
+                <span class="fw-bold mt-5">less(Comparable p, Comparable q)</span>
+                <p>Compares p and q using p.compareTo(q) function and returns true if p &lt; q else false . </p>
+
+                <span class="fw-bold mt-5">exch(Comparable[] arr, int i, int min)</span>
+                <p>Swaps the values of indices i and min in array <code>arr</code> .</p>
+
+                <span class="fw-bold mt-5">int p.compareTo(int q)</span>
+                <p>Compares p and q and returns -1 if p &lt; q, 0 if p = q and 1 if p &gt; q</p>
+
+                <span class="fw-bold mt-5">count()</span>`
+                <p>Returns number of Components in the Network.</p>
+            </div>
+
+            <div id="selection-sort">
+                <h4 class="fw-bold display-5 mt-5">Selection Sort</h4>
+                <p>
+                    <code>Selection sort</code> is a comparison based algorithm which repeatedly selects minimum element
+                    from
+                    unsorted portion of array and move it to sorted portion. Time Complexity of Selection sort is
+                    <code>O(n<sup>2</sup>)
+                    </code>
+                </p>
+                <div id="selection-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code</span>
+                    <ul>
+                        <li>Initialize the minimum as the first number in array</li>
+                        <li>Find the minimum by iterating through unsorted portion of array to find smallest using
+                            <code>less()</code> api</li>
+                        <li>Swap minimum found element with the first number in array using <code>exchg()</code> api
+                        </li>
+                        <li>Repeat until entire array is sorted</li>
+                    </ul>
+                    <span class="fw-bold mt-5">Actual Code</span>
+                    <pre style="color:pink">
+    public class SelectionSort {
+    
+    public void sort(Comparable[] a) {
+        for (int i = 0; i < a.length; i++) {
+        int min = i;
+        for (int j = i + 1; j < a.length; j++)
+            if (less(a[j], a[min]))
+                min = j;
+        exch(a, i, min);
+        }
+    private void exch(Comparable[] a, int i, int min) {
+        Comparable t = a[i];
+        a[i] = a[min];
+        a[min] = t;
+    }
+    private boolean less(Comparable a, Comparable b) {
+        return a.compareTo(b) < 0;
+        }
+    }
+    } 
+                    </pre>
+                    <span class="fw-bold">Client Code</span>
+                    <pre style="color:pink">
+public static void main(String[] args) {
+    SelectionSort sorting = new SelectionSort();
+    Integer[] arr = { 8, 4, 22, 7, 1, 6 };
+
+    sorting.sort(arr);
+    for (int i = 0; i < arr.length; i++)
+        System.out.println(arr[i]);
+
+}
+                </pre>
+                </div>
+
+
+            </div>
+
+            <div id="insertion-sort">
+                <h4 class="fw-bold display-5 mt-5">Insertion Sort</h4>
+                <p>
+                    <code>Insertion sort</code> is a comparison based algorithm which builds the final sorted array one
+                    item at a time. Time complexity is
+                    <code>O(n<sup>2</sup>)</code>. This algorithm is slow for large unordered arrays as only exchanges
+                    it does involve adjacent entries.
+                </p>
+
+                <div id="insertion-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code</span>
+                    <ul>
+                        <li>Start outer loop with index 'i' from 1 uptil array length</li>
+                        <ul>
+                            <li>Start inner loop with index 'j' from i to j > 0 and if current value at j is less than
+                                value
+                                at j-1 .</li>
+                            <li>Keep decrementing j until j is greater than 0.</li>
+                            <li>If value at j is less than value at j-1 than swap elements at j and j-1 using
+                                <code>exchg()</code> api.</li>
+                        </ul>
+
+                        <span class="fw-bold mt-5">Actual Code</span>
+                        <pre style="color:pink">
+    public class InsertionSort {
+        public static boolean less(Comparable a, Comparable b){
+            return a.compareTo(b) &lt; 0;
+        }
+
+        public void exchg(Comparable[] a, int i, int j){
+            Comparable t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+        }
+        public static void sort(Comparable[] a){
+            int N = a.length;
+            for(int i = 1; i &lt; N; i++)}
+                for(int j = i; j &gt; 0 && less(a[j], a[j-1]); j--)
+                    exchg(a,j,j-1);
+        }
+    
+                    </pre>
+                        <span class="fw-bold">Client Code</span>
+                        <pre style="color:pink">
+public static void main(String[] args) {
+    InsertionSort sorting = new InsertionSort();
+    Integer[] arr = { 8, 4, 22, 7, 1, 6 };
+
+    sorting.sort(arr);
+    for (int i = 0; i < arr.length; i++)
+        System.out.println(arr[i]);
+
+}
+                </pre>
+                </div>
+            </div>
+
+            <div id="compare-two-algo">
+                <h4 class="fw-bold display-5 mt-5">What is inversion?</h4>
+                <p>
+                    An inversion is a pair of indices (i,j) such that i &lt; j and A[i] > A[j]
+                </p>
+                <p>
+                    The <code>number of exchanges</code> used by insertion sort equals the <code>number of
+                        inversions</code> in an array. The <code>number of compares</code> is between the number of
+                    inversions and <code>number of inversions + (array size - 1)</code>. <br /> <br />
+
+                    For partially sorted array when the number of inversions is low, <code>insertion sort</code> is
+                    likely to be
+                    faster than any sorting method
+                </p>
+            </div>
+
+            <div id="inversions">
+                <h4 class="fw-bold display-5 mt-5">Comparison of two algorithms</h4>
+                <p>
+                    Comparing two algorithm like insertion or selection!
+                </p>
+                <div id="time-api" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code for time()</span>
+                    <ul>
+                        <li>Initialize/start the stopwatch timer</li>
+                        <li>Sort as per the algorithm </li>
+                        <li>Calculate total time by elapsedTime()</li>
+                    </ul>
+                    <pre style="color:pink">
+    public static double time(String alg, Double[] a){
+        Stopwatch timer = new Stopwatch();
+        if(alg.equals("Insertion")) Insertion.sort(a);
+        else if(alg.equals("Selection")) Selection.sort(a);
+        return timer.elapsedTime();
+}
+</pre>
+                </div>
+                <div id="time-random-input" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code for timeRandomInput()</span>
+                    <ul>
+                        <li>Initialize total and an array</li>
+                        <li>Loop over every T random arrays </li>
+                        <ul>
+                            <li>Perform one experiment. Generate and sort an array</li>
+                        </ul>
+                        <li>Return total time taken.</li>
+                    </ul>
+                    <pre style="color:pink">
+    public static double timeRandomInput(String alg, int N, int T){
+        double total = 0.0;
+        Double[] a = new Double[N];
+        for(int t = 0; t < T; t++){ 
+            for(int i=0; i < N; i++) 
+                a[i]=StdRandom.uniform(); 
+            total +=time(alg, a); }
+            return total; 
+        } 
+   </pre>
+                </div>
+                <div id="client-code" class="ms-5">
+                    <span class="fw-bold mt-5">Client Code</span>
+                    <pre style="color:pink">
+public static void main(String[] args){
+    String alg1=args[0];
+    String alg2=args[1];
+    int N=Integer.parseInt(args[2]);
+    int T=Integer.parseInt(args[3]);
+    double t1=timeRandomInput(alg1, N,T);
+    double t2=timeRandomInput(alg2, N, T);
+    StdOut.printf("alg1 is times faster than" + (t2/t1),alg2) 
+}  </pre>
+                </div>
+
+            </div>
+
+            <div id="shell-sort">
+                <h4 class="fw-bold display-5 mt-5">Shell Sort</h4>
+                <p>
+                    <code>Shellsort </code>is an efficient sorting algorithm that enhances insertion sort by allowing
+                    elements
+                    to be compared and moved over larger intervals, progressively reducing the gap size until the
+                    array is sorted. Time complexity is
+                    <code>O(n<sup>3/2</sup>)
+                    </code>.
+                </p>
+                <div id="shell-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code</span>
+                    <ul>
+                        <li>Initialize N(Number of items) and h(gap)</li>
+                        <li>Calculate h until N/3 which is (h*3 + 1)</li>
+                        <li>Loop over until h is greater than 1</li>
+                        <ul>
+                            <li>Loop over from h till N</li>
+                            <li>Perform insertion sort and swap within h-spaced subarrays </li>
+                            <li>Update h to h/3</li>
+                        </ul>
+                    </ul>
+
+                    <span class="fw-bold mt-5">Actual Code</span>
+                    <pre style="color:pink">
+public class ShellSort {
+    public static void sort(Comparable[] a){
+        int N = a.length;
+        int h = 1;
+        while(h &lt; N/3){
+            h = h * 3 + 1;
+        }
+        while(h &gt;= 1){
+            for(int i = h; h < N/3; i++){
+                for(int j = i; j &gt; h && less(a[j], a[j-h]); j-=h)
+                    exch(a, j, j-h)
+            }
+            h = h/3;
+        }
+    }
+}</pre>
+                    <span class="fw-bold">Client Code</span>
+                    <pre style="color:pink">
+public static void main(String[] args) {
+    InsertionSort sorting = new InsertionSort();
+    Integer[] arr = { 8, 4, 22, 7, 1, 6 };
+
+    sorting.sort(arr);
+    for (int i = 0; i < arr.length; i++)
+        System.out.println(arr[i]);
+
+}
+                </pre>
+                </div>
+            </div>
+        </div>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
+</body>
+
+</html>
