@@ -21,22 +21,74 @@
                 </p>
             </div>
 
-            <div id="typeOfData" style="margin-top:20px">
-                <h2 class="display-6 fw-bold">Type of Data </h2>
+            <div id="comparable" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Comparable interface</h2>
 
                 <p>
-                    Above code is effective for data type that implements <code>Comparable</code>. Many data types in
-                    Java like <code> Integer, Double, Float, Strings </code> implements Comparable so we have methods
-                    like <code>compareTo()</code>.
-                    <pre>
-    v.compareTo(w)  // compares v and w and return Negative if v < w else positive and 0 if equals
-                                
-                        </pre>
+                    The <code>Comparable</code> Interface in Java is used to define a natural ordering of objects. By
+                    implementing this interface, a class specifies how its instances should be compared with each other.
+                    Types that naturally have a defined order, such as Strings, Integers, Doubles, and Floats, implement
+                    Comparable.
+                </p>
+
+                <p>
+                    The <code>compareTo()</code> method is a key feature of the <code>Comparable</code> Interface. It
+                    provides a way to compare two objects of the same type. This method returns a negative integer if
+                    the
+                    current object is less than the argument, zero if they are equal, and a positive integer if the
+                    current
+                    object is greater.
+                </p>
+
+                <pre style="color:pink">
+v.compareTo(w) // Compares v and w and returns a negative value if v < w, positive if v > w, and 0 if they are equal.
+                </pre>
+
+                <p>
+                    Implementing <code>Comparable</code> allows objects to be naturally sorted using methods like
+                    <code>Collections.sort()</code> or <code>Arrays.sort()</code> without needing to provide an external
+                    comparator.
                 </p>
             </div>
 
-            <div id="api">
-                <h4 class="fw-bold display-5 ">APIs</h4>
+
+            <div id="api-comparable">
+                <h2 class="fw-bold display-5 ">APIs of Comparable</h2>
+                <span class="fw-bold mt-5">int p.compareTo(int q)</span>
+                <p>Compares p and q and returns -1 if p &lt; q, 0 if p = q and 1 if p &gt; q</p>
+            </div>
+
+            <div id="comparator" style="margin-top:20px">
+                <h2 class="display-6 fw-bold">Comparator interface</h2>
+
+                <p>
+                    The <code>Comparator</code> Interface in Java is used to define custom ordering of objects. Unlike
+                    <code>Comparable</code>, which is implemented by the object itself to provide a natural ordering,
+                    <code>Comparator</code> allows defining multiple different ordering logics for objects of the same
+                    class.
+                </p>
+
+                <p>
+                    The <code>compare()</code> method is the core method of the <code>Comparator</code> interface. It
+                    compares two objects of the same type based on a specific criterion defined by the implementation of
+                    this method.
+                </p>
+
+                <pre style="color:blue">
+comparator.compare(obj1, obj2)  // Compares obj1 and obj2 based on custom criteria and returns Negative if obj1 < obj2 else positive and 0 if equals
+                </pre>
+
+                <p>
+                    <code>Comparator</code> instances are useful when you need to sort objects by criteria other than
+                    their natural order, or when sorting objects that do not implement <code>Comparable</code>. It has
+                    to be explicitly passed to sort functions like <code>Collections.sort(person, new
+                        AgeComparator())</code>. Can be written outside of class.
+                </p>
+            </div>
+
+
+            <div id="methods">
+                <h4 class="fw-bold display-5 ">Methods used for Sorting:</h4>
                 <span class="fw-bold mt-5">sort(Comparable[] a)</span>
                 <p>
                     Sort the given array into increasing order of the sequence.
@@ -48,12 +100,10 @@
                 <span class="fw-bold mt-5">exch(Comparable[] arr, int i, int min)</span>
                 <p>Swaps the values of indices i and min in array <code>arr</code> .</p>
 
-                <span class="fw-bold mt-5">int p.compareTo(int q)</span>
-                <p>Compares p and q and returns -1 if p &lt; q, 0 if p = q and 1 if p &gt; q</p>
-
                 <span class="fw-bold mt-5">count()</span>`
                 <p>Returns number of Components in the Network.</p>
             </div>
+
 
             <div id="selection-sort">
                 <h4 class="fw-bold display-5 mt-5">Selection Sort</h4>
@@ -121,6 +171,12 @@ public static void main(String[] args) {
                     item at a time. Time complexity is
                     <code>O(n<sup>2</sup>)</code>. This algorithm is slow for large unordered arrays as only exchanges
                     it does involve adjacent entries.
+                </p>
+                <p>
+                    If array is in ascending order, insertion sort makes <code>N-1 compares and 0 exchanges</code>. If
+                    array is in descending order, insertion sort makes <code> N<sup>2</sup> compares and
+                        N<sup>2</sup> exchanges</code> . Takes lot of time if in descending order.
+                    If array is already sorted/partially sorted then Insertion algorithm takes <code>O(N)</code>
                 </p>
 
                 <div id="insertion-algo" class="ms-5">
