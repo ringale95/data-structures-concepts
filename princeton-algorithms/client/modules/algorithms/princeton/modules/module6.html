@@ -84,12 +84,20 @@ public void merge(Comparable[] a, int low, int mid, int high){
                 <pre style="color:pink">
 
 //client code
-public static void main(String[] args){
+public class Merge{
+    private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi){
+        if(hi <=lo) return;
+        int mid = lo + (hi-lo) / 2;
+        sort(a, aux, lo, mid);
+        sort(a, aux, mid+1, hi);
+        merge(a, aux, lo, mid, hi);
+    }
 
-    String[] arr = { "E", "E", "G", "M", "R", "A", "C", "E", "R", "T" };
-    MergeSort1.merge(arr);
-    for(int i =0 ; i < arr.length; i++)
-        System.out.println(arr[i] + ",");
+    public static void sort(Comparable[] a){
+        aux = new Comparable[a.length];
+        sort(a, aux, 0, a.length - 1);
+    }
+    
 }
             </pre>
             </div>
@@ -223,8 +231,25 @@ private static void sort(Comparable[] a, int lo, int mid, int hi){
 }   
                     </pre>
                 </div>
-            </div>
 
+            </div>
+            <span class="fw-bold mt-5">For small subarrays, use insertion sort instead of merge sort. Merge sort is
+                usually used for large datasets. Merge sort is considered optimal because its worst-case performance
+                matches the theoretical lower limit for comparison-based sorting. <code> It’s proven that no sorting
+                    method using comparisons can sort N items with fewer than about N log N comparisons. </code></span>
+
+            <span class="fw-bold mt-5">Stability</span>
+            <p>If we sort by Age then it wont be sorted by name this is non-stable</p>
+            <p>Which sort is stable?</p>
+            <ul>
+                <li>Insertion sort is stable as equal item dont move long distance past each other</li>
+                <li>Selection sort is not stable as long distance exchange may move an item past some equal item</li>
+                <li>Shell sort is not stable as long distance exchange may move an item past some equal item</li>
+                <li>Merge sort is stable. Preserve relative order if two equivalent keys in left or right part</li>
+            </ul>
+            <a style="display: block;" class="fw-bold mt-5 mb-5 display-5 text-light" href="linkedlistshuffle.html">
+                Learn more about LinkedList shuffling randomly
+                ></a>
         </div>
         <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
         </script>
