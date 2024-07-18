@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-2">
+        <div>
+            <h1>Shuffle randomly linkedlist using merge sort</h1>
+            <h4 style="color:red">Given a singly-linked list containing n items, rearrange the items uniformly at
+                random.
+                Your algorithm should consume a logarithmic (or
+                constant) amount of extra memory and run in time proportional to 𝑛log𝑛 in the worst case.
+            </h4>
+
+            <div id="shuffle-linklist" class="mt-5">
+                <span class="fw-bold">Steps to shuffle a linklist using merge sort:</span><br />
+                <ul>
+                    <li>
+                        Create a <code>Node</code> class with data and pointer to next node
+                    </li>
+                    <li>Create a method shuffle which takes head as parameter. This method will sort the list using
+                        mergeSort(head)</li>
+                    <li>Create MergeSort method which will take size of list and head as parameter. This will perform
+                        separate sorting of left and right portion and merge them using <code>merge(size, head)</code>
+                    </li>
+                    <li>Merge will merge two sorted sublists by creating a dummy list and making current point to it
+                        and then randomly selecting any value from left or right sublist and adding it to dummy list
+                    </li>
+                </ul>
+            </div>
+
+            <div id="node-creation">
+                <span class="fw-bold">Pseudo code of Creating a Node</span><br />
+                <ul>
+                    <li>Create a public class <code>Node</code></li>
+                    <li>Initialize two private variables <code>data</code> and <code>next</code></li>
+                </ul>
+                <pre style="color:pink">
+    public class Node{
+        private int data;
+        private Node next;
+    
+        public Node(int data){
+            this.data = data;
+            this.next = null;
+        }
+    }
+                </pre>
+            </div>
+
+            <div id="shuffle">
+                <span class="fw-bold">Pseudo code of Shuffling</span><br />
+                <ul>
+                    <li>Return head itself if list is empty or only 1 node is present as no need to shuffle</li>
+                    <li>Count the size of list and give it to mergeSort method to sort the list and also give head as
+                        parameter </li>
+                </ul>
+                <pre style="color:pink">
+    private Node shuffle(Node head){
+       if(head == null || head.next === null) 
+        return head;
+
+        int size = getSize(head);
+        return mergeSort(size, head);
+    }
+                </pre>
+            </div>
+
+            <div id="sort">
+                <span class="fw-bold">Pseudo code of Sorting using mergesort</span><br />
+                <ul>
+                    <li>Initialize mid, left, right, and prev</li>
+                    <li>Calculate and take out mid element assign it as a prev and right as prev.next</li>
+                    <li>Split the list from mid</li>
+                    <li>Perform recursive mergesort for left and right sorted sublists</li>
+                    <li>Merge both the lists if not empty</li>
+                </ul>
+                <pre style="color:pink">
+    private Node mergeSort(int size, Node head){
+       if(size <= 1) 
+        return head;
+
+       int mid = size / 2;
+       int left = head;
+       int right = head;
+       int prev = null
+
+       for(int i = 0 i < mid; i++) {
+        prev = right;
+        right = right.next;
+       }
+
+      if(prev != null)
+       prev = null;
+
+       left = mergeSort(mid, left);
+       right = mergeSort(size-mid, right);
+
+       return merge(left, right);
+    }
+                </pre>
+            </div>
+
+            <div id="merge">
+                <span class="fw-bold">Pseudo code of Merging</span><br />
+                <ul>
+                    <li>Create a dummy new node </li>
+                    <li>Current now points to dummy</li>
+                    <li>Object creation for Random </li>
+                    <li>Add into dummy either left or right node based on the outcome of rand.nextBoolean()</li>
+                    <li>Add remaining left or right node data in dummy and return the list</li>
+                </ul>
+                <pre style="color:pink">
+    private Node merge(Node head, Node right){
+        Node dummy = new Node(0);
+        Node curr= dummy;
+        Random rand = new Random();
+
+        while(left != null,  right != null){
+            if(rand.nextBoolean()){
+                curr.next = left;
+                left = left.next;
+            } else{
+                curr.next = right;
+                right = right.next;
+            }
+        }
+        return dummy.next; //  this will point to the starting of actual list and no 0;
+    }
+                </pre>
+
+                <span class="fw-bold">Client code:</span><br />
+
+                <pre style="color:pink">
+public static void main(String[] args) {
+    Node head = new Node(1);
+    head.next = new Node(2);
+    head.next.next = new Node(3);
+    head.next.next.next = new Node(4);
+    head.next.next.next.next = new Node(5);
+
+    MergeLinkListRandom mg = new MergeLinkListRandom();
+    Node shuffled = mg.shuffle(head);
+    System.out.println(mg.printList(shuffled));
+}
+                </pre>
+            </div>
+
+
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
