@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Princeton Algorithm</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <div class="container p-5 mb-5">
+        <div>
+            <h1 class="display-4 fw-bold">Merge Sort</h1>
+
+            <div id="introduction" style="margin-top:20px">
+                <p>
+                    Merge sort is considered a non-trivial algorithm due to its complex process of dividing an array
+                    into halves,
+                    sorting each half, and then merging the sorted halves back together with Time complexity
+                    <code>NlogN</code>
+                </p>
+                <div id="merge-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code</span>
+                    <ul>
+                        <li>Initialize variables <code>i</code> and <code>j</code> to <code>low</code> and <code>mid +
+                                1</code> respectively.</li>
+                        <li>Divide the array into two halves using the values of <code>low</code>, <code>mid</code>, and
+                            <code>high</code>.</li>
+                        <li>Ensure that each half (i.e., from <code>low</code> to <code>mid</code> and from <code>mid +
+                                1</code> to <code>high</code>) is sorted.</li>
+                        <li>Loop over the entire array to create a copy <code>aux[]</code> of the original array
+                            <code>a[]</code>.</li>
+                        <li>Loop over the copied array and insert sorted elements back into the original array
+                            <code>a[]</code>:</li>
+                        <ul>
+                            <li>If the left half elements are exhausted, copy the remaining elements from the right half
+                                into the original array <code>a[]</code>.</li>
+                            <li>If the right half elements are exhausted, copy the remaining elements from the left half
+                                into the original array <code>a[]</code>.</li>
+                            <li>Compare each element of the left half with the corresponding element of the right half.
+                                Insert the smaller element into the original array <code>a[]</code> and increment the
+                                respective subarray index.</li>
+                            <li>Otherwise, continue copying all the elements from the left subarray one by one into the
+                                original array <code>a[]</code>.</li>
+                        </ul>
+                    </ul>
+                </div>
+                <span class="fw-bold mt-5">Actual Code</span>
+                <pre style="color:pink">
+public void merge(Comparable[] a, int low, int mid, int high){
+    
+    int i = low; 
+    int j = mid + 1;
+    int high = a.length;
+
+    if(isSorted(a, mid));
+    if(isSorted(mid+1, high));
+    
+    for(int k = low; i <= hi; k++)
+        aux[k] = a[k];
+    
+    for(int k = low; k <=hi; k++){
+
+        //left part exhausted then copy complete right part to a[]
+        if(i > mid) a[k] = aux[j++];
+
+        //right part exhausted then copy complete left part to a[]
+        else if (j > hi) a[k] = a[i++];
+
+        check every element of left to right part 
+        else if(less(aux[j], aux[i])) a[k] = aux[j++];
+
+        else a[k] = aux[i++];
+    }
+
+    public static boolean less(Comparable v, Comparable w){
+        return v.compareTo(w) < 0;
+    }
+ }              
+                </pre>
+                <span class="fw-bold">Client Code</span>
+                <pre style="color:pink">
+
+//client code
+public static void main(String[] args){
+
+    String[] arr = { "E", "E", "G", "M", "R", "A", "C", "E", "R", "T" };
+    MergeSort1.merge(arr);
+    for(int i =0 ; i < arr.length; i++)
+        System.out.println(arr[i] + ",");
+}
+            </pre>
+            </div>
+
+            <div id="top-down">
+                <h2 class="fw-bold display-5 ">Top Down approach</h2>
+                <p>Top-down Mergesort is a sorting algorithm that uses a recursive approach to sort an array. It relies
+                    on a concept called <code> "divide-and-conquer," </code> which means breaking down a problem into
+                    smaller
+                    parts and
+                    solving each part individually. Time complexity between <code> 1⁄2NlgN and NlgN </code>compares to
+                    sort
+                    any array of
+                    length. Can be used in linklist sorting</p>
+
+
+                <div id="top-down-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code of Top Down mergesort</span>
+                    <ul>
+                        <li> Create a new array <code>"aux" </code> of type Comparable </li>
+                        <li>Initialize and Sort the array in sort() function</li>
+                    </ul>
+                </div>
+
+                <div id="top-down-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Actual Code of Top Down mergesort</span>
+                    <pre style="color:pink">
+public class Merge{
+    private static Comparable[] aux;
+    public static void sort(Comparable[] a){
+        aux = new Comparable[a.length];
+        sort(a, 0, a.length - 1);
+    }
+}
+                </pre>
+                </div>
+
+                <div id="sort-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code of sort function</span>
+                    <ul>
+                        <li>Return when high is less than low that means array has 1 or no elements</li>
+                        <li>Calculate the mid point of a array</li>
+                        <li>Sort the left part of array i.e. from <code>low to mid</code></li>
+                        <li>Sort the right part of array i.e. from <code>mid+1 to high</code></li>
+                        <li>Merge both the left and right part using merge() function</li>
+
+                    </ul>
+                    <span class="fw-bold mt-5">Actual of sort function</span>
+                    <pre style="color:pink">
+private static void sort(Comparable[] a, int lo, int hi){
+    if(hi <= lo) return;
+    int mid = lo + (hi-lo)/2;
+    sort(a, 0, mid);
+    sort(a, mid + 1, hi);
+    merge(a, lo, mid, hi);
+}            </pre>
+
+                </div>
+
+                <div id="merge-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code of merge function for top-Down appraoch</span>
+                    <li>Initialize variables <code>i</code> and <code>j</code> to <code>low</code> and <code>mid +
+                            1</code> respectively.</li>
+                    <li>Divide the array into two halves using the values of <code>low</code>, <code>mid</code>, and
+                        <code>high</code>.</li>
+                    <li>Ensure that each half (i.e., from <code>low</code> to <code>mid</code> and from <code>mid +
+                            1</code> to <code>high</code>) is sorted.</li>
+                    <li>Loop over the entire array to create a copy <code>aux[]</code> of the original array
+                        <code>a[]</code>.</li>
+                    <li>Loop over the copied array and insert sorted elements back into the original array
+                        <code>a[]</code>:</li>
+                    <ul>
+                        <li>If the left half elements are exhausted, copy the remaining elements from the right half
+                            into the original array <code>a[]</code>.</li>
+                        <li>If the right half elements are exhausted, copy the remaining elements from the left half
+                            into the original array <code>a[]</code>.</li>
+                        <li>Compare each element of the left half with the corresponding element of the right half.
+                            Insert the smaller element into the original array <code>a[]</code> and increment the
+                            respective subarray index.</li>
+                        <li>Otherwise, continue copying all the elements from the left subarray one by one into the
+                            original array <code>a[]</code>.</li>
+                    </ul>
+                    </ul>
+                    <span class="fw-bold mt-5">Actual of merge function</span>
+                    <pre style="color:pink">
+private static void merge(Comparable[] a, int lo, int mid, int hi){
+   int i = lo;
+   int j = mid + 1;
+   for(int k = lo; k <= hi; k++) aux[k] = a[k];
+
+   for(int k = lo; k <= hi; k++){
+    if(i > mid) a[k] = aux[i++];
+    else if(j > hi) a[k] = aux[j++];
+    else if(less(aux[j], aux[i])) a[k] = aux[j++];
+    else a[k] = aux[i++];
+   }
+}            </pre>
+
+                </div>
+
+            </div>
+
+            <div id="bottom-up">
+                <h2 class="fw-bold display-5 ">Bottom Up approach</h2>
+                <p>Bottom-up merge sort is an iterative version of the merge sort algorithm that eliminates the need for
+                    recursion. It sorts the array by progressively merging smaller sorted subarrays into larger ones
+                    until the entire array is sorted. Avoids potential stack overflow issues associated with recursive
+                    calls.</p>
+
+
+                <div id="bottom-up-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Pseudo Code of Bottom Up mergesort</span>
+                    <ul>
+                        <li> Initialize sz to 1 and create an auxiliary array of the same length as the input array.
+                        </li>
+                        <li>For each sz, merge pairs of subarrays of size sz.</li>
+                        <li>After each pass through the array, double the size of the subarrays (sz = sz + sz)</li>
+                        <li>Continue the process until sz is larger than or equal to the length of the array.</li>
+                    </ul>
+                </div>
+
+                <div id="bottom-up-algo" class="ms-5">
+                    <span class="fw-bold mt-5">Actual Code of Bottom Up mergesort</span>
+                    <pre style="color:pink">
+private static void sort(Comparable[] a, int lo, int mid, int hi){
+    int N = a.length;
+    Comparable[] aux = new Comparable[N];
+    for(int sz = 1; sz < N; sz = sz+sz)
+        for(int lo = 0; lo < N-sz; lo+=sz+sz)
+            merge(a, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));
+}   
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script>
+</body>
+
+</html>
